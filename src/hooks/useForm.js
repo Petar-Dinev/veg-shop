@@ -1,18 +1,18 @@
 import { useState } from "react"
 
-export const useForm = (initialValues, onSubmitHandler) => {
+export const useForm = (initialValues, callback) => {
     const [values, setValues] = useState(initialValues)
 
-    const onChange = (e) => {
+    const onChangeHandler = (e) => {
         setValues(old => ({ ...old, [e.target.name]: e.target.value }))
     }
 
-    const onSubmit = (e) => {
+    const onSubmitHandler = (e) => {
         e.preventDefault()
-        if (onSubmitHandler) {
-            onSubmitHandler(values)
+        if (callback) {
+            callback(values)
         }
     }
 
-    return [values, onChange, onSubmit]
+    return [values, onChangeHandler, onSubmitHandler]
 }
