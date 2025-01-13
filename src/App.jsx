@@ -4,6 +4,7 @@ import { Header } from "./components/header/Header";
 import { AuthProvider } from "./contexts/AuthContext";
 import { Register } from "./components/register/Register";
 import { Home } from "./components/home/Home";
+import { Login } from "./components/login/Login";
 
 function App() {
   return (
@@ -11,7 +12,7 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
-        {/* <Route path="/login" element={} /> */}
+        <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
       </Routes>
     </AuthProvider>
