@@ -1,0 +1,27 @@
+.login-section {
+    max-width: 300px;
+    background-color: white;
+    margin: 2em auto;
+    border-radius: 2em;
+    padding: 1em;
+    box-shadow: 0 0 0 0.3em rgb(107, 107, 107);
+}
+
+.login-section-header h2 {
+    color: #368;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 0.3em;
+}
+
+.form-button {
+    margin-top: 1em;
+    background-color: #368;
+    padding: 0.5em 1em;
+}
+
+.login-section footer {
+    color: black;
+}
