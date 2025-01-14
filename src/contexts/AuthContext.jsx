@@ -28,7 +28,17 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const contextValues = { authData, onRegister, onLogin };
+  const onLogout = async () => {
+    try {
+      await authService.logout();
+      setAuthData({});
+      navigate("/");
+    } catch (err) {
+      return alert(err);
+    }
+  };
+
+  const contextValues = { authData, onRegister, onLogin, onLogout };
 
   return (
     <AuthContext.Provider value={contextValues}>
