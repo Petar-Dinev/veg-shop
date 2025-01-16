@@ -8,23 +8,32 @@ export const AuthProvider = ({ children }) => {
   const [authData, setAuthData] = useState({});
   const navigate = useNavigate();
 
-  const onRegister = async (values) => {
+  const onRegister = async ({ email, username, password, rePass }) => {
     try {
-      const result = await authService.register(values);
+      if (email == '' || username == '' || password == '') {
+        throw new Error('All fields are required!')
+      }
+      if (password != rePass) {
+        throw new Error('Passwords don\'t match!')
+      }
+      const result = await authService.register({ email, username, password });
       setAuthData(result);
       navigate("/");
     } catch (err) {
-      return alert(err);
+      return alert(err.message);
     }
   };
 
-  const onLogin = async (values) => {
+  const onLogin = async ({ email, username, password }) => {
     try {
-      const result = await authService.login(values);
+      if (email == '' || username == '' || password == '') {
+        throw new Error('All fields are required!')
+      }
+      const result = await authService.login({ email, password });
       setAuthData(result);
       navigate("/");
     } catch (err) {
-      return alert(err);
+      return alert(err.message);
     }
   };
 
