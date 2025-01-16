@@ -5,8 +5,17 @@ import { useNavigate } from "react-router-dom";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [authData, setAuthData] = useState({});
+  const [authData, setAuthData] = useState(() => {
+    const authData = JSON.parse(localStorage.getItem('authData'))
+
+    return authData || {}
+  });
   const navigate = useNavigate();
+
+  const changeAuthData = (value) => {
+    localStorage.setItem('authData', JSON.stringify(value));
+    setAuthData(value);
+  }
 
   const onRegister = async ({ email, username, password, rePass }) => {
     try {
@@ -17,20 +26,20 @@ export const AuthProvider = ({ children }) => {
         throw new Error('Passwords don\'t match!')
       }
       const result = await authService.register({ email, username, password });
-      setAuthData(result);
+      changeAuthData(result);
       navigate("/");
     } catch (err) {
       return alert(err.message);
     }
   };
 
-  const onLogin = async ({ email, username, password }) => {
+  const onLogin = async ({ email, password }) => {
     try {
-      if (email == '' || username == '' || password == '') {
+      if (email == '' || password == '') {
         throw new Error('All fields are required!')
       }
       const result = await authService.login({ email, password });
-      setAuthData(result);
+      changeAuthData(result);
       navigate("/");
     } catch (err) {
       return alert(err.message);
